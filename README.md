@@ -39,7 +39,7 @@ const litersToGallons = convertVolume('liters', 'gallons', 100); // Output: 26.4
 To set up the project, clone the repository and install dependencies:
 
 ```bash
-git clone <repository_url>
+git clone https://github.com/rabyyuson/unit-conversion.git
 cd conversion-utility
 npm install
 # or
@@ -72,7 +72,7 @@ Contributions and enhancements to this utility are welcome! Feel free to fork th
 
 ## License
 
-This project is licensed under the [MIT License](https://chat.openai.com/c/LICENSE), granting permissions for distribution, modification, and use.
+This project is licensed under the [MIT License](http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1), granting permissions for distribution, modification, and use.
 
 ```c
 This markdown file provides sections for Features, Examples, Installation, Usage, Tests, Contributions, and License. Feel free to customize it further!
