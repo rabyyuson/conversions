@@ -1,18 +1,28 @@
 export const UNITS = {
-    temperatures: ['celsius', 'fahrenheit', 'kelvin', 'rankine'],
-    volumes: ['cubic-feet', 'cubic-inches', 'cups', 'gallons', 'liters', 'tablespoons'],
-}
+    temperatures: [
+        { name: 'celsius', symbol: '°C' },
+        { name: 'fahrenheit', symbol: '°F' },
+        { name: 'kelvin', symbol: 'K' },
+        { name: 'rankine', symbol: '°R' },
+    ],
+    volumes: [
+        { name: 'cubic-feet', symbol: 'cu ft' },
+        { name: 'cubic-inches', symbol: 'cu in' },
+        { name: 'cups', symbol: 'US cups' },
+        { name: 'gallons', symbol: 'gal' },
+        { name: 'liters', symbol: 'L' },
+        { name: 'tablespoons', symbol: 'tbps' },
+    ],
+};
 
 type UnitType = typeof UNITS;
 
 interface TemperatureUnit {
-    name: UnitType['temperatures'][number];
-    symbol: string;
+    name: UnitType['temperatures'][number]['name'];
 }
 
 interface VolumeUnit {
-    name: UnitType['volumes'][number];
-    symbol: string;
+    name: UnitType['volumes'][number]['name'];
 }
 
 export class Temperature {
@@ -22,8 +32,14 @@ export class Temperature {
       this.unit = unit;
     }
   
-    getSymbol(): string {
-      return this.unit.symbol;
+    /**
+     * Retrieves the symbol associated with the temperature unit.
+     * 
+     * @returns The symbol for the temperature unit or undefined if the unit name is not found
+     */
+    getSymbol(): string | undefined {
+        const unit = UNITS.temperatures.find(unit => unit.name === this.unit.name);
+        return unit ? unit.symbol : undefined;
     }
 
     /**
@@ -133,8 +149,14 @@ export class Volume {
       this.unit = unit;
     }
   
-    getSymbol(): string {
-      return this.unit.symbol;
+    /**
+     * Retrieves the symbol associated with the volume unit.
+     * 
+     * @returns The symbol for the volume unit or undefined if the unit name is not found
+     */
+    getSymbol(): string | undefined {
+        const unit = UNITS.volumes.find(unit => unit.name === this.unit.name);
+        return unit ? unit.symbol : undefined;
     }
 
     /**

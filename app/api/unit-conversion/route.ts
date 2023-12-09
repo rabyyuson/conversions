@@ -4,7 +4,7 @@ import {
     Volume,
 } from '@/app/lib/models';
 
-// Common response headers
+// Allowed response headers
 const headers = { 'Content-Type': 'application/json' };
 
 // Method not allowed response
@@ -19,6 +19,36 @@ function methodNotAllowed() {
 }
 
 /**
+ * Checks if the given unit is a temperature unit based on the name.
+ * 
+ * @param inputUnit The unit to be checked
+ * @returns A boolean indicating whether the unit is a temperature unit or not
+ */
+function isTemperatureUnit(inputUnit: string): boolean {
+    return UNITS.temperatures.some((unit) => unit.name === inputUnit);
+}
+
+/**
+ * Checks if the given unit is a volume unit based on the name.
+ * 
+ * @param inputUnit The unit to be checked
+ * @returns A boolean indicating whether the unit is a volume unit or not
+ */
+function isVolumeUnit(inputUnit: string): boolean {
+    return UNITS.volumes.some((unit) => unit.name === inputUnit);
+}
+
+/**
+ * Rounds the given value to the tenths place.
+ * 
+ * @param value The numerical value to be rounded
+ * @returns The rounded value or null if the input value is null
+ */
+function convertAndRoundValue(value: number | null): number | null {
+    return value ? Number(value.toFixed(1)) : null;
+}
+
+/**
  * Performs conversion between different units of measure for temperature and volume.
  * It checks if the conversion is for temperature or volume, performs the conversion using dedicated classes,
  * and rounds the result to the tenths place.
@@ -28,34 +58,26 @@ function methodNotAllowed() {
  * @param targetUnitOfMeasure The target unit for conversion
  * @returns The converted value or null if conversion is not supported
  */
-function handleConversion(inputNumericalValue: number, inputUnitOfMeasure: string, targetUnitOfMeasure: string) {
-    let convertedValue: number | null = null;
+function handleConversion(
+    inputNumericalValue: number,
+    inputUnitOfMeasure: string,
+    targetUnitOfMeasure: string
+): number | null {
+    let convertedValue = null;
     const normalizedInputUnitOfMeasure = inputUnitOfMeasure.toLowerCase();
     const normalizedTargetUnitOfMeasure = targetUnitOfMeasure.toLowerCase();
 
-    // Check if it's a temperature conversion
-    const isTemperatureConversion = (inputUnit: string, targetUnit: string): boolean =>
-        UNITS.temperatures.includes(inputUnit) && UNITS.temperatures.includes(targetUnit);
-
-    // Check if it's a volume conversion
-    const isVolumeConversion = (inputUnit: string, targetUnit: string): boolean =>
-        UNITS.volumes.includes(inputUnit) && UNITS.volumes.includes(targetUnit);
-
-    // Round the value to the tenths place
-    const convertAndRoundValue = (value: number | null): number | null =>
-        value !== null ? Number(value.toFixed(1)) : null;
-
     // Perform temperature conversion
-    if (isTemperatureConversion(normalizedInputUnitOfMeasure, normalizedTargetUnitOfMeasure)) {
-        const temperature = new Temperature({ name: normalizedInputUnitOfMeasure, symbol: '' });
-        const targetTemperature = { name: normalizedTargetUnitOfMeasure, symbol: '' };
+    if (isTemperatureUnit(normalizedInputUnitOfMeasure) && isTemperatureUnit(normalizedTargetUnitOfMeasure)) {
+        const temperature = new Temperature({ name: normalizedInputUnitOfMeasure });
+        const targetTemperature = { name: normalizedTargetUnitOfMeasure };
         convertedValue = convertAndRoundValue(temperature.convertTo(targetTemperature, inputNumericalValue));
     }
 
     // Perform volume conversion
-    if (isVolumeConversion(normalizedInputUnitOfMeasure, normalizedTargetUnitOfMeasure)) {
-        const volume = new Volume({ name: normalizedInputUnitOfMeasure, symbol: '' });
-        const targetVolume = { name: normalizedTargetUnitOfMeasure, symbol: '' };
+    if (isVolumeUnit(normalizedInputUnitOfMeasure) && isVolumeUnit(normalizedTargetUnitOfMeasure)) {
+        const volume = new Volume({ name: normalizedInputUnitOfMeasure });
+        const targetVolume = { name: normalizedTargetUnitOfMeasure };
         convertedValue = convertAndRoundValue(volume.convertTo(targetVolume, inputNumericalValue));
     }
 
@@ -85,6 +107,7 @@ export async function POST(request: Request) {
         const {
             inputNumericalValue,
             inputUnitOfMeasure,
+            studentResponse,
             targetUnitOfMeasure,
         } = requestData;
 
