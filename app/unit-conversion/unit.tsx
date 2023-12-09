@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { ALLOWED, UNITS } from '@/app/lib/constants';
+import { ALLOWED, ERRORS, UNITS } from '@/app/lib/constants';
 import Navigation from '@/app/ui/navigation';
 import Dropdown from '@/app/unit-conversion/dropdown';
 import { capitalize } from '@/app/lib/utils';
@@ -38,14 +38,12 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
             });
 
             if (response.ok) {
-                const data = await response.json();
-                setResults(data);
-                console.log('Conversion results:', data);
+                setResults(await response.json());
             } else {
-                throw new Error('Failed to fetch conversion results');
+                throw new Error(ERRORS.failedConversionResults);
             }
         } catch (error) {
-            console.error('Error fetching conversion results:', error);
+            console.error(`${ERRORS.failedConversionResults} `, error);
         }
     };
 

@@ -23,6 +23,7 @@ export enum Output {
 
 export const ERRORS = {
     conversionFailed: 'Conversion failed or not supported due to invalid units or other issues.',
+    failedConversionResults: 'Failed to fetch conversion results.',
     internalServerError: 'Internal Server Error',
     invalidContentType: 'Invalid Content-Type. Expected:',
     methodNotAllowed: 'Method not allowed',
