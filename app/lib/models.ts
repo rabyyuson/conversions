@@ -1,29 +1,5 @@
-export const UNITS = {
-    temperatures: [
-        { name: 'celsius', symbol: '°C' },
-        { name: 'fahrenheit', symbol: '°F' },
-        { name: 'kelvin', symbol: 'K' },
-        { name: 'rankine', symbol: '°R' },
-    ],
-    volumes: [
-        { name: 'cubic-feet', symbol: 'cu ft' },
-        { name: 'cubic-inches', symbol: 'cu in' },
-        { name: 'cups', symbol: 'US cups' },
-        { name: 'gallons', symbol: 'gal' },
-        { name: 'liters', symbol: 'L' },
-        { name: 'tablespoons', symbol: 'tbps' },
-    ],
-};
-
-type UnitType = typeof UNITS;
-
-interface TemperatureUnit {
-    name: UnitType['temperatures'][number]['name'];
-}
-
-interface VolumeUnit {
-    name: UnitType['volumes'][number]['name'];
-}
+import { UNITS } from './constants';
+import { TemperatureUnit, VolumeUnit } from '@/app/lib/types';
 
 export class Temperature {
     unit: TemperatureUnit;

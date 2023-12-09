@@ -1,22 +1,8 @@
-import {
-    UNITS,
-    Temperature,
-    Volume,
-} from '@/app/lib/models';
+import { ERRORS, UNITS, Output } from '@/app/lib/constants';
+import { Temperature, Volume } from '@/app/lib/models';
 
 // Allowed response headers
 const headers = { 'Content-Type': 'application/json' };
-
-// Method not allowed response
-function methodNotAllowed() {
-    return new Response(JSON.stringify({ message: 'Method not allowed' }), {
-        status: 405,
-        headers: {
-            ...headers,
-            'Allow': 'POST',
-        },
-    });
-}
 
 /**
  * Checks if the given unit is a temperature unit based on the name.
@@ -58,30 +44,63 @@ function convertAndRoundValue(value: number | null): number | null {
  * @param targetUnitOfMeasure The target unit for conversion
  * @returns The converted value or null if conversion is not supported
  */
-function handleConversion(
+function convertValue(
     inputNumericalValue: number,
     inputUnitOfMeasure: string,
     targetUnitOfMeasure: string
 ): number | null {
     let convertedValue = null;
-    const normalizedInputUnitOfMeasure = inputUnitOfMeasure.toLowerCase();
-    const normalizedTargetUnitOfMeasure = targetUnitOfMeasure.toLowerCase();
 
     // Perform temperature conversion
-    if (isTemperatureUnit(normalizedInputUnitOfMeasure) && isTemperatureUnit(normalizedTargetUnitOfMeasure)) {
-        const temperature = new Temperature({ name: normalizedInputUnitOfMeasure });
-        const targetTemperature = { name: normalizedTargetUnitOfMeasure };
+    if (isTemperatureUnit(inputUnitOfMeasure) && isTemperatureUnit(targetUnitOfMeasure)) {
+        const temperature = new Temperature({ name: inputUnitOfMeasure });
+        const targetTemperature = { name: targetUnitOfMeasure };
         convertedValue = convertAndRoundValue(temperature.convertTo(targetTemperature, inputNumericalValue));
     }
 
     // Perform volume conversion
-    if (isVolumeUnit(normalizedInputUnitOfMeasure) && isVolumeUnit(normalizedTargetUnitOfMeasure)) {
-        const volume = new Volume({ name: normalizedInputUnitOfMeasure });
-        const targetVolume = { name: normalizedTargetUnitOfMeasure };
+    if (isVolumeUnit(inputUnitOfMeasure) && isVolumeUnit(targetUnitOfMeasure)) {
+        const volume = new Volume({ name: inputUnitOfMeasure });
+        const targetVolume = { name: targetUnitOfMeasure };
         convertedValue = convertAndRoundValue(volume.convertTo(targetVolume, inputNumericalValue));
     }
 
     return convertedValue;
+}
+
+/**
+ * Checks if the student response matches the converted value.
+ * 
+ * @param studentResponse The response provided by the student
+ * @param convertedValue The value obtained after conversion
+ * @returns A boolean indicating whether the student response matches the converted value
+ */
+function isCorrect(studentResponse: number, convertedValue: number): boolean {
+    return studentResponse === convertedValue;
+}
+
+/**
+ * Generates a response with an invalid output and a custom message.
+ * 
+ * @param {object} options - Object containing status code and message
+ * @param {number} options.status - The status code for the response (default is 200)
+ * @param {string} options.message - The message to include in the response
+ * @returns A Response object indicating an invalid output result with a custom message
+ */
+function invalidOutput({
+    status = 200,
+    message,
+}: {
+    status?: number;
+    message?: string;
+}) {
+    return new Response(
+        JSON.stringify({
+            output: Output.INVALID,
+            message,
+        }),
+        { status, headers }
+    );
 }
 
 /**
@@ -94,15 +113,13 @@ function handleConversion(
  */
 export async function POST(request: Request) {
     const contentType = request.headers.get('content-type');
-
-    // Check if the content type is application/json
-    if (!contentType || !contentType.includes(headers['Content-Type'])) {
-        return new Response(JSON.stringify({
-            message: `Content-Type should be ${headers['Content-Type']}`,
-        }), { status: 400, headers });
-    }
+    const validContentType = headers['Content-Type'];
 
     try {
+        if (!contentType || !contentType.includes(validContentType)) {
+            throw new Error(`${ERRORS.invalidContentType} ${validContentType}`);
+        }
+
         const requestData = await request.json();
         const {
             inputNumericalValue,
@@ -111,20 +128,75 @@ export async function POST(request: Request) {
             targetUnitOfMeasure,
         } = requestData;
 
-        // Get the converted value
-        const convertedValue = handleConversion(inputNumericalValue, inputUnitOfMeasure, targetUnitOfMeasure);
+        const normalizedInputNumericalValue = inputNumericalValue ? Number(inputNumericalValue) : null;
+        const normalizedInputUnitOfMeasure = inputUnitOfMeasure ? inputUnitOfMeasure.toLowerCase() : null;
+        const normalizedStudentResponse = studentResponse ? convertAndRoundValue(Number(studentResponse)) : null;
+        const normalizedTargetUnitOfMeasure = targetUnitOfMeasure ? targetUnitOfMeasure.toLowerCase() : null;
 
-        // Respond with conversion not supported if unable to perform the conversion
-        if (!convertedValue) {
-            return new Response(JSON.stringify({ message: 'Conversion not supported' }), { status: 400, headers });
+        // Get the converted value
+        if (
+            normalizedInputNumericalValue &&
+            normalizedInputUnitOfMeasure &&
+            normalizedTargetUnitOfMeasure &&
+            normalizedStudentResponse
+        ) {
+            const convertedValue = convertValue(
+                normalizedInputNumericalValue,
+                normalizedInputUnitOfMeasure,
+                normalizedTargetUnitOfMeasure
+            );
+
+            // Return an invalid response if the conversion failed
+            if (convertedValue === null) {
+                return invalidOutput({ message: ERRORS.conversionFailed });
+            }
+        
+            // Calculate the correctness of the student response against the converted value
+            const isResponseCorrect = isCorrect(normalizedStudentResponse, convertedValue);
+
+            // Return a response based on correctness evaluation
+            return new Response(
+                JSON.stringify({
+                    output: isResponseCorrect ? Output.CORRECT : Output.INCORRECT,
+                    conversion: convertedValue.toString(),
+                }),
+                { status: 200, headers }
+            );
         }
 
-        // Respond with the converted value
-        return new Response(JSON.stringify({ convertedValue }), { status: 200, headers });
+        // Return an invalid response if any of the input values (student response or converted value)
+        // is missing or is incorrect format
+        return invalidOutput({ message: ERRORS.conversionFailed });
     } catch (error) {
-        // Respond with error message
-        return new Response(JSON.stringify({ message: 'Internal Server Error' }), { status: 500, headers });
+        let message = ERRORS.internalServerError;
+        let status = 500;
+
+        if (error instanceof Error) {
+            message = error.message;
+            status = 400; // Bad Request
+        }
+
+        return invalidOutput({ status, message });
     }
+}
+
+/**
+ * Creates a Response indicating that the HTTP method used is not allowed.
+ * 
+ * @returns A Response object with a status of 405 (Method Not Allowed)
+ *          and includes the allowed HTTP methods in the 'Allow' header.
+ */
+function methodNotAllowed() {
+    return new Response(
+        JSON.stringify({ message: ERRORS.methodNotAllowed }), 
+        {
+            status: 405,
+            headers: {
+                ...headers,
+                'Allow': 'POST',
+            },
+        }
+    );
 }
 
 // Handle other HTTP methods by returning a method not allowed response
