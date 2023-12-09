@@ -116,7 +116,9 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
                 onClick={handleSubmit}
             />
             <br/><br/>
-            {results?.output && `${capitalize(results.output)}! The conversion result is ${results.conversion}`}
+            {results?.output && `${capitalize(results.output)}! `}
+            {results?.conversion && `The conversion result is ${results.conversion} `}
+            {results?.message}
         </>
     );
 }
