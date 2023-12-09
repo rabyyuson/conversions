@@ -1,4 +1,4 @@
-import { UNITS } from "./constants";
+import { UNITS } from './constants';
 
 export type Unit = {
     name: string;
@@ -8,9 +8,21 @@ export type Unit = {
 export type Units = Unit[];
 
 export type TemperatureUnit = {
-    name: typeof UNITS['temperatures'][number]['name'];
-}
+    name: typeof UNITS['temperature'][number]['name'];
+};
 
 export type VolumeUnit = {
-    name: typeof UNITS['volumes'][number]['name'];
+    name: typeof UNITS['volume'][number]['name'];
+};
+
+export type DropdownProps = {
+    list: Units;
+    handleUnitChange: (value: string) => void;
+    value?: string;
 }
+
+export type Result = {
+    output: string;
+    conversion?: string;
+    message?: string;
+};

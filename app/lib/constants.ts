@@ -27,3 +27,9 @@ export const ERRORS = {
     invalidContentType: 'Invalid Content-Type. Expected:',
     methodNotAllowed: 'Method not allowed',
 } 
+
+export const ALLOWED = {
+    headers: {
+        'Content-Type': 'application/json',
+    },
+};

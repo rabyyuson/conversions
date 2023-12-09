@@ -1,8 +1,5 @@
-import { ERRORS, UNITS, Output } from '@/app/lib/constants';
+import { ERRORS, ALLOWED, UNITS, Output } from '@/app/lib/constants';
 import { Temperature, Volume } from '@/app/lib/models';
-
-// Allowed response headers
-const headers = { 'Content-Type': 'application/json' };
 
 /**
  * Checks if the given unit is a temperature unit based on the name.
@@ -99,7 +96,7 @@ function invalidOutput({
             output: Output.INVALID,
             message,
         }),
-        { status, headers }
+        { status, headers: ALLOWED.headers }
     );
 }
 
@@ -113,7 +110,7 @@ function invalidOutput({
  */
 export async function POST(request: Request) {
     const contentType = request.headers.get('content-type');
-    const validContentType = headers['Content-Type'];
+    const validContentType = ALLOWED.headers['Content-Type'];
 
     try {
         if (!contentType || !contentType.includes(validContentType)) {
@@ -160,7 +157,7 @@ export async function POST(request: Request) {
                     output: isResponseCorrect ? Output.CORRECT : Output.INCORRECT,
                     conversion: convertedValue.toString(),
                 }),
-                { status: 200, headers }
+                { status: 200, headers: ALLOWED.headers }
             );
         }
 
@@ -192,7 +189,7 @@ function methodNotAllowed() {
         {
             status: 405,
             headers: {
-                ...headers,
+                ...ALLOWED.headers,
                 'Allow': 'POST',
             },
         }
