@@ -14,7 +14,7 @@ export class Temperature {
      * @returns The symbol for the temperature unit or undefined if the unit name is not found
      */
     getSymbol(): string | undefined {
-        const unit = UNITS.temperatures.find(unit => unit.name === this.unit.name);
+        const unit = UNITS.temperature.find(unit => unit.name === this.unit.name);
         return unit ? unit.symbol : undefined;
     }
 
@@ -131,7 +131,7 @@ export class Volume {
      * @returns The symbol for the volume unit or undefined if the unit name is not found
      */
     getSymbol(): string | undefined {
-        const unit = UNITS.volumes.find(unit => unit.name === this.unit.name);
+        const unit = UNITS.volume.find(unit => unit.name === this.unit.name);
         return unit ? unit.symbol : undefined;
     }
 

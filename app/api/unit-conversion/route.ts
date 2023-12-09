@@ -11,7 +11,7 @@ const headers = { 'Content-Type': 'application/json' };
  * @returns A boolean indicating whether the unit is a temperature unit or not
  */
 function isTemperatureUnit(inputUnit: string): boolean {
-    return UNITS.temperatures.some((unit) => unit.name === inputUnit);
+    return UNITS.temperature.some((unit) => unit.name === inputUnit);
 }
 
 /**
@@ -21,7 +21,7 @@ function isTemperatureUnit(inputUnit: string): boolean {
  * @returns A boolean indicating whether the unit is a volume unit or not
  */
 function isVolumeUnit(inputUnit: string): boolean {
-    return UNITS.volumes.some((unit) => unit.name === inputUnit);
+    return UNITS.volume.some((unit) => unit.name === inputUnit);
 }
 
 /**

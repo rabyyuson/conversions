@@ -1,11 +1,16 @@
 import { UNITS } from "./constants";
 
-type UnitType = typeof UNITS;
+export type Unit = {
+    name: string;
+    symbol: string;
+};
+
+export type Units = Unit[];
 
 export type TemperatureUnit = {
-    name: UnitType['temperatures'][number]['name'];
+    name: typeof UNITS['temperatures'][number]['name'];
 }
 
 export type VolumeUnit = {
-    name: UnitType['volumes'][number]['name'];
+    name: typeof UNITS['volumes'][number]['name'];
 }

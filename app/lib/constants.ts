@@ -1,11 +1,11 @@
 export const UNITS = {
-    temperatures: [
+    temperature: [
         { name: 'celsius', symbol: '°C' },
         { name: 'fahrenheit', symbol: '°F' },
         { name: 'kelvin', symbol: 'K' },
         { name: 'rankine', symbol: '°R' },
     ],
-    volumes: [
+    volume: [
         { name: 'cubic-feet', symbol: 'cu ft' },
         { name: 'cubic-inches', symbol: 'cu in' },
         { name: 'cups', symbol: 'US cups' },
