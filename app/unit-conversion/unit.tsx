@@ -74,7 +74,7 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
                     className='border'
                     name='inputNumericalValue'
                     type='number'
-                    step='0.01'
+                    step='1'
                     placeholder='Enter the value to convert'
                     value={inputNumericalValue}
                     onChange={handleInputNumericalValueChange}
@@ -99,7 +99,7 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
                     className='border'
                     name='studentResponse'
                     type='number'
-                    step='0.01'
+                    step='1'
                     placeholder='Enter the student response'
                     value={studentResponse}
                     onChange={handleStudentResponseChange}
