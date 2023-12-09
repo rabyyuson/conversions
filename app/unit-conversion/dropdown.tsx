@@ -28,7 +28,7 @@ export default function Dropdown({ list, handleUnitChange, value }: DropdownProp
                     key={`${item.name}-${index}`}
                     value={item.name}
                 >
-                    {capitalize(item.name)}
+                    {`${capitalize(item.name)} (${item.symbol})`}
                 </option>
             ))}
         </select>

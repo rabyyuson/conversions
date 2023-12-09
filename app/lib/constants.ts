@@ -6,12 +6,12 @@ export const UNITS = {
         { name: 'rankine', symbol: '°R' },
     ],
     volume: [
-        { name: 'cubic-feet', symbol: 'cu ft' },
-        { name: 'cubic-inches', symbol: 'cu in' },
-        { name: 'cups', symbol: 'US cups' },
+        { name: 'cubic-feet', symbol: 'ft³' },
+        { name: 'cubic-inches', symbol: 'in³' },
+        { name: 'cups', symbol: 'cups' },
         { name: 'gallons', symbol: 'gal' },
         { name: 'liters', symbol: 'L' },
-        { name: 'tablespoons', symbol: 'tbps' },
+        { name: 'tablespoons', symbol: 'tbsp' },
     ],
 };
 
@@ -22,7 +22,7 @@ export enum Output {
 }
 
 export const ERRORS = {
-    conversionFailed: 'Conversion failed or not supported due to invalid units or other issues.',
+    conversionFailed: 'Conversion failed or not supported. Please check the inputs and then try again.',
     failedConversionResults: 'Failed to fetch conversion results.',
     internalServerError: 'Internal Server Error',
     invalidContentType: 'Invalid Content-Type. Expected:',
