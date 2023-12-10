@@ -23,6 +23,7 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
     const [targetUnitOfMeasure, setTargetUnitOfMeasure] = useState('');
     const [studentResponse, setStudentResponse] = useState('');
     const [results, setResults] = useState<Result | null>(null);
+    const [showModal, setShowModal] = useState(false);
 
     // Fetches conversion results from the API based on user inputs.
     const fetchConversionResults = async () => {
@@ -56,8 +57,11 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
     const handleStudentResponseChange = (event: React.ChangeEvent<HTMLInputElement>) =>
         setStudentResponse(event.target.value);
 
-    // Submits the conversion request.
-    const handleSubmit = async () => await fetchConversionResults();
+    // Submits the conversion request and shows the modal
+    const handleSubmit = async () => {
+        await fetchConversionResults();
+        setShowModal(true);
+    }
 
     // Reset the form to its original state
     const resetForm = useCallback(() => {
@@ -70,6 +74,10 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
     // Set default unit measures on component mount or when 'type' changes
     useEffect(() => resetForm(), [resetForm]);
 
+    // Toggle the modal display
+    const toggleModal = () => setShowModal(!showModal);
+
+    // Render the form fields
     const renderForm = () => {
         return (
             <div className='bg-white w-1/2 h-full rounded-lg p-8 mr-4'>
@@ -151,6 +159,7 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
         );
     }
 
+    // Render the results (TODO)
     const renderResults = () => {
         return (
             <div className='bg-white w-1/2 h-full rounded-lg p-4 ml-4'>
@@ -167,17 +176,26 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
         );
     }
 
-    // Render the unit
+    // Render the modal
+    const renderModal = () => {
+        return (
+            <Modal
+                output={results?.output}
+                conversion={results?.conversion}
+                studentResponse={studentResponse}
+                message={results?.message}
+                toggleModal={toggleModal}
+            />
+        );
+    }
+
+    // Render the complete unit
     const renderUnit = () => {
         return (
             <div className='flex'>
                 {renderForm()}
-                <Modal
-                    output={results?.output}
-                    conversion={results?.conversion}
-                    studentResponse={studentResponse}
-                />
                 {renderResults()}
+                {showModal && renderModal()}
             </div>
         );
     }

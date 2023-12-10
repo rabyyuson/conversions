@@ -40,4 +40,5 @@ export type SidebarLinkProps = {
 
 export interface ModalProps extends Result {
     studentResponse: string;
+    toggleModal: () => void;
 }
