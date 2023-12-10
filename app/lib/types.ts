@@ -37,3 +37,8 @@ export type SidebarLinkProps = {
     label: string;
     icon: string;
 };
+
+export type BarChartProps = {
+    conversion: string;
+    studentResponse: string;
+};
