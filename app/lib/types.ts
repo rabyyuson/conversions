@@ -42,3 +42,7 @@ export interface ModalProps extends Result {
     studentResponse: string;
     toggleModal: () => void;
 }
+
+export type LottieAnimationProps = {
+    animationData: Record<string, any>;
+}

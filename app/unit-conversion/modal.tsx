@@ -1,9 +1,14 @@
 import { useRef, useEffect } from 'react';
 import { ModalProps } from '@/app/lib/types';
 import { capitalize } from '@/app/lib/utils';
+import incorrectAnimation from '@/public/modal/incorrect.json';
+import correctAnimation from '@/public/modal/correct.json';
+import LottieAnimation from '@/app/ui/lottie-animation';
 
 export default function Modal({ output, conversion, studentResponse, message, toggleModal }: ModalProps) {
     const modalRef = useRef<HTMLDivElement>(null);
+
+    console.log({ output, conversion, studentResponse, message, toggleModal })
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -16,7 +21,7 @@ export default function Modal({ output, conversion, studentResponse, message, to
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, []);
+    });
 
     return (
         <div
@@ -37,18 +42,39 @@ export default function Modal({ output, conversion, studentResponse, message, to
                     <div className='relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg'>
                         <div className='bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4'>
                             <div className='sm:flex sm:items-start'>
-                                <div className='mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10'>
-
-                                </div>
                                 <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
                                 <h3 className='text-base font-semibold leading-6 text-gray-900' id='modal-title'>{capitalize(output ?? '')}</h3>
                                 <div className='mt-2'>
-                                    <p className='text-sm text-gray-500'>
-                                        {message
-                                            ? message
-                                            : `The conversion result is <b>${conversion}</b> and the student&apos;s response <b>${studentResponse}</b>!`
-                                        }
-                                    </p>
+                                    <div className='text-sm text-gray-500'>
+                                        {output === 'incorrect' && (
+                                            <>
+                                                <div className='flex justify-center align-center'>
+                                                    <LottieAnimation animationData={incorrectAnimation} />
+                                                </div>
+                                                <div>
+                                                    The conversion result is <b>{conversion}</b> and the student&apos;s response <b>{studentResponse}</b>!
+                                                </div>
+                                            </>
+                                        )}
+                                        {output === 'invalid' && (
+                                            <>
+                                                <div className='flex justify-center align-center'>
+                                                    <LottieAnimation animationData={incorrectAnimation} />
+                                                </div>
+                                                {message}
+                                            </>
+                                        )}
+                                        {output === 'correct' && (
+                                            <>
+                                                <div className='flex justify-center align-center'>
+                                                    <LottieAnimation animationData={correctAnimation} />
+                                                </div>
+                                                <div>
+                                                    The conversion result is <b>{conversion}</b> and the student&apos;s response <b>{studentResponse}</b>!
+                                                </div>
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
                                 </div>
                             </div>
