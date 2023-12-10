@@ -4,11 +4,11 @@ import { LottieAnimationProps } from '@/app/lib/types';
 
 const LottieAnimation = ({ animationData }: LottieAnimationProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
-    let anim: AnimationItem | null = null;
+    const animRef = useRef<AnimationItem | null>(null);
 
     useEffect(() => {
         if (containerRef.current && animationData) {
-            anim = lottie.loadAnimation({
+            animRef.current = lottie.loadAnimation({
                 container: containerRef.current,
                 renderer: 'svg',
                 loop: false,
@@ -18,8 +18,8 @@ const LottieAnimation = ({ animationData }: LottieAnimationProps) => {
         }
 
         return () => {
-            if (anim) {
-                anim.destroy();
+            if (animRef.current) {
+                animRef.current.destroy();
             }
         };
     }, [animationData]);

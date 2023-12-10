@@ -160,11 +160,11 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
     }
 
     // Render the table chart
-    const renderTable = () => {
+    const renderResources = () => {
         return (
-            <div className='bg-white w-1/2 h-full rounded-lg p-4 ml-4'>
-                <h3>Table Chart</h3>
-                
+            <div className='bg-white w-1/2 h-full rounded-lg p-4 ml-4 overflow-x-auto'>
+                <h3>Links</h3>
+
             </div>
         );
     }
@@ -187,7 +187,7 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
         return (
             <div className='flex'>
                 {renderForm()}
-                {renderTable()}
+                {renderResources()}
                 {showModal && renderModal()}
             </div>
         );
