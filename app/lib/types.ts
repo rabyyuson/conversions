@@ -23,7 +23,7 @@ export type DropdownProps = {
 }
 
 export type Result = {
-    output: string;
+    output?: string;
     conversion?: string;
     message?: string;
 };
@@ -38,7 +38,6 @@ export type SidebarLinkProps = {
     icon: string;
 };
 
-export type BarChartProps = {
-    conversion: string;
+export interface ModalProps extends Result {
     studentResponse: string;
-};
+}

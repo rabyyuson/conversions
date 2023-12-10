@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Sidebar from '@/app/ui/sidebar';
 import Main from '@/app/ui/main';
 import NotFound from '@/app/ui/not-found';
@@ -8,7 +8,7 @@ import Dropdown from '@/app/unit-conversion/dropdown';
 import { ALLOWED, ERRORS, UNITS } from '@/app/lib/constants';
 import { capitalize } from '@/app/lib/utils';
 import { Result } from '@/app/lib/types';
-import BarChart from '@/app/ui/bar-chart';
+import Modal from '@/app/unit-conversion/modal';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -23,7 +23,6 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
     const [targetUnitOfMeasure, setTargetUnitOfMeasure] = useState('');
     const [studentResponse, setStudentResponse] = useState('');
     const [results, setResults] = useState<Result | null>(null);
-    const [showBarChart, setShowBarChart] = useState(false);
 
     // Fetches conversion results from the API based on user inputs.
     const fetchConversionResults = async () => {
@@ -58,21 +57,18 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
         setStudentResponse(event.target.value);
 
     // Submits the conversion request.
-    const handleSubmit = async () => {
-        await fetchConversionResults();
-        setShowBarChart(true);
-    }
+    const handleSubmit = async () => await fetchConversionResults();
 
     // Reset the form to its original state
-    const resetForm = () => {
+    const resetForm = useCallback(() => {
         setInputNumericalValue('');
         setStudentResponse('');
         setInputUnitOfMeasure(UNITS[type]?.[0]?.name || '');
         setTargetUnitOfMeasure(UNITS[type]?.[1]?.name || '');
-    }
+    }, [type])
 
     // Set default unit measures on component mount or when 'type' changes
-    useEffect(() => resetForm(), [type]);
+    useEffect(() => resetForm(), [resetForm]);
 
     const renderForm = () => {
         return (
@@ -135,10 +131,10 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
                         />
                     </div>
                 </div>
-                <div className="mt-6 flex items-center justify-end gap-x-4">
+                <div className='mt-6 flex items-center justify-end gap-x-4'>
                     <button
-                        type="button"
-                        className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                        type='button'
+                        className='rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'
                         onClick={resetForm}
                     >
                         Reset
@@ -156,32 +152,19 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
     }
 
     const renderResults = () => {
-        if (
-            inputNumericalValue &&
-            inputUnitOfMeasure &&
-            targetUnitOfMeasure &&
-            studentResponse
-        ) {
-            if (results?.output) {
-                return (
-                    <div className='bg-white w-1/2 h-full rounded-lg p-4 ml-4'>
-                        <h3>Results</h3>
-                        {`${capitalize(results.output)}! `}
-                        {results?.conversion && (
-                            <>
-                                <BarChart
-                                    conversion={results.conversion}
-                                    studentResponse={studentResponse}
-                                />
-                                The conversion result is&nbsp;
-                                <b>{results.conversion}</b>
-                            </>
-                        )}
-                        {results?.message}
-                    </div>
-                );
-            }
-        }
+        return (
+            <div className='bg-white w-1/2 h-full rounded-lg p-4 ml-4'>
+                <h3>Results</h3>
+                {results?.output && `${capitalize(results.output)}! `}
+                {results?.conversion && (
+                    <>
+                        The conversion result is&nbsp;
+                        <b>{results.conversion}</b>
+                    </>
+                )}
+                {results?.message}
+            </div>
+        );
     }
 
     // Render the unit
@@ -189,6 +172,11 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
         return (
             <div className='flex'>
                 {renderForm()}
+                <Modal
+                    output={results?.output}
+                    conversion={results?.conversion}
+                    studentResponse={studentResponse}
+                />
                 {renderResults()}
             </div>
         );

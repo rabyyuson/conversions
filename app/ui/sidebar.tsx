@@ -2,11 +2,17 @@
 
 import Link from 'next/link';
 import clsx from 'clsx';
-import { isActivePath } from '@/app/lib/utils';
 import styles from '@/app/ui/sidebar.module.css';
 import { SidebarLinkProps } from '@/app/lib/types';
+import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 export default function Sidebar() {
+    const pathname = usePathname();
+
+    // Check if the given path matches the current pathname.
+    const isActivePath = (path: string) => pathname === path;
+
     const renderLink = ({ path, label, icon }: SidebarLinkProps) => {
         return (
             <Link
@@ -16,11 +22,12 @@ export default function Sidebar() {
                     isActivePath(path) ? styles.active : styles.inactive
                 )}
             >
-                <img
+                <Image
                     src={isActivePath(path) ? `/sidebar/${icon}-active.svg` : `/sidebar/${icon}-inactive.svg`}
                     width={20}
                     height={20}
                     className='mr-2'
+                    alt='Sidebar link icon'
                 />
                 <span>
                     {label}
@@ -30,14 +37,15 @@ export default function Sidebar() {
     }
 
     return (
-        <div className='w-1/5 border-[#ecedf7] border-1 border-r p-4'>
+        <div className='w-1/5 p-4'>
             <h2 className='text-xl font-bold mb-4 flex'>
-                <img
+                <Image
                     src='/sidebar/logo.png'
-                    width={50}
-                    height={50}
+                    width={35}
+                    height={35}
+                    alt='Sidebar logo'
                 />
-                <span className='text-base uppercase font-medium ml-1 mt-4'>
+                <span className='text-base uppercase font-medium ml-[10px] mt-[7px]'>
                     Conversions
                 </span>
             </h2>
