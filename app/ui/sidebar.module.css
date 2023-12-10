@@ -1,0 +1,17 @@
+.active {
+    background-color: #313131;
+
+    span {
+        color: #fff;
+    }
+}
+
+.inactive {
+    span {
+        color: #313131;
+    }
+}
+
+.inactive:hover {
+    background-color: #e8eaef;
+}

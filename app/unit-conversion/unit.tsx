@@ -68,7 +68,7 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
     const renderUnitForm = () => {
         return (
             <>
-                <h1>{capitalize(type)} Conversion</h1>
+                <h2 className='text-xl font-bold mb-4'>{capitalize(type)} Conversion</h2>
                 <br />
                 Value to convert: 
                 <input

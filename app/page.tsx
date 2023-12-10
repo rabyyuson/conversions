@@ -6,7 +6,7 @@ export default function Home() {
     <>
       <Sidebar/>
       <Main>
-        <h1 className='text-2xl font-bold mb-4'>Home</h1>
+        <h2 className='text-xl font-bold mb-4'>Home</h2>
         <p>
             This is the content area where your page content will go.
             Customize it according to your needs.

@@ -30,4 +30,10 @@ export type Result = {
 
 export type MainProps = {
     children: ReactNode;
-}
+};
+
+export type SidebarLinkProps = {
+    path: string;
+    label: string;
+    icon: string;
+};
