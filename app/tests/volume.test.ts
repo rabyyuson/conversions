@@ -1,4 +1,4 @@
-import { Volume } from "../lib/models";
+import { Volume } from '../lib/models';
 
 describe('Volume Conversion', () => {
     test('getSymbol method', () => {

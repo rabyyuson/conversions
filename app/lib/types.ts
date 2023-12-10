@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { UNITS } from './constants';
 
 export type Unit = {
@@ -26,3 +27,7 @@ export type Result = {
     conversion?: string;
     message?: string;
 };
+
+export type MainProps = {
+    children: ReactNode;
+}

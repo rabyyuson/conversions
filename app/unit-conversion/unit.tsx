@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { ALLOWED, ERRORS, UNITS } from '@/app/lib/constants';
-import Navigation from '@/app/ui/navigation';
+import Sidebar from '@/app/ui/sidebar';
+import Main from '@/app/ui/main';
 import NotFound from '@/app/ui/not-found';
 import Dropdown from '@/app/unit-conversion/dropdown';
+import { ALLOWED, ERRORS, UNITS } from '@/app/lib/constants';
 import { capitalize } from '@/app/lib/utils';
 import { Result } from '@/app/lib/types';
 
@@ -126,9 +127,10 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
 
     return (
         <>
-            <Navigation />
-            {UNITS[type] && renderUnitForm()}
-            {!UNITS[type] && <NotFound/>}
+            <Sidebar/>
+            <Main>
+                {UNITS[type] ? renderUnitForm() : <NotFound/>}
+            </Main>
         </>
     );
 }
