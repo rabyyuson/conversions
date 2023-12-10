@@ -5,8 +5,8 @@ import '@/app/ui/globals.css';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Unit Conversion Application',
-  description: 'Temperature and Volumes unit converter',
+  title: 'Conversions',
+  description: 'Unit conversion application',
 }
 
 export default function RootLayout({

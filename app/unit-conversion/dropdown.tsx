@@ -19,9 +19,16 @@ export default function Dropdown({ list, handleUnitChange, value }: DropdownProp
 
     return (
         <select
-            className='border'
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6 appearance-none"
             value={value}
             onChange={handleChange}
+            style={{
+                backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="black"><path fill-rule="evenodd" d="M10 14a1 1 0 0 1-.707-.293l-5-5a1 1 0 0 1 1.414-1.414L10 11.586l4.293-4.293a1 1 0 0 1 1.414 1.414l-5 5A1 1 0 0 1 10 14z"/></svg>')`,
+                backgroundPosition: 'right 0.75rem center',
+                backgroundSize: '1em',
+                backgroundRepeat: 'no-repeat',
+                paddingRight: '2em',
+            }}
         >
             {list.map((item, index) => (
                 <option
