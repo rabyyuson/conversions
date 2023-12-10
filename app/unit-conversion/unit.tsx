@@ -159,19 +159,12 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
         );
     }
 
-    // Render the results (TODO)
-    const renderResults = () => {
+    // Render the table chart
+    const renderTable = () => {
         return (
             <div className='bg-white w-1/2 h-full rounded-lg p-4 ml-4'>
-                <h3>Results</h3>
-                {results?.output && `${capitalize(results.output)}! `}
-                {results?.conversion && (
-                    <>
-                        The conversion result is&nbsp;
-                        <b>{results.conversion}</b>
-                    </>
-                )}
-                {results?.message}
+                <h3>Table Chart</h3>
+                
             </div>
         );
     }
@@ -194,7 +187,7 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
         return (
             <div className='flex'>
                 {renderForm()}
-                {renderResults()}
+                {renderTable()}
                 {showModal && renderModal()}
             </div>
         );

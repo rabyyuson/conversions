@@ -37,7 +37,7 @@ export default function Modal({ output, conversion, studentResponse, message, to
                                 ? 'text-[#24b26d]'
                                 : 'text-[#ff4d4d]'
                         )}>
-                            {capitalize(output ?? '')}
+                            {capitalize(output ?? '')}!
                         </h3>
                         <p className={clsx(
                             'mt-7 text-base text-gray-500 text-lg',
@@ -46,7 +46,7 @@ export default function Modal({ output, conversion, studentResponse, message, to
                             {message 
                                 ? message
                                 : (<>
-                                    The result is <b className='text-[#111] text-xl tracking-wider'>{conversion}</b> and the student&apos;s response <b className='text-[#111] text-xl tracking-wider'>{studentResponse}</b>!
+                                    The result is <span className='text-[#111] text-xl tracking-wider font-semibold'>{conversion}</span> and the student&apos;s response <span className='text-[#111] text-xl tracking-wider font-semibold'>{studentResponse}</span>.
                                 </>)
                             }
                         </p>
