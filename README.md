@@ -29,7 +29,7 @@ import { Temperature } from '@/app/lib/models';
 
 const temperature = new Temperature({ name: 'Celsius' });
 const targetTemperature = { name: 'Fahrenheit' };
-convertedValue = convertAndRoundValue(temperature.convertTo(targetTemperature, 3));
+const convertedValue = convertAndRoundValue(temperature.convertTo(targetTemperature, 3));
 
 console.log(convertedValue) // 37.4
 ```
@@ -45,7 +45,7 @@ import { Volume } from '@/app/lib/models';
 
 const volume = new Volume({ name: 'Cups' });
 const targetVolume = { name: 'Liters' };
-convertedValue = convertAndRoundValue(volume.convertTo(targetVolume, 25.6));
+const convertedValue = convertAndRoundValue(volume.convertTo(targetVolume, 25.6));
 
 console.log(convertedValue) // 6.1
 ```
