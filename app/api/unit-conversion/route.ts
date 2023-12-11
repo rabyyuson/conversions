@@ -1,5 +1,6 @@
 import { ERRORS, ALLOWED, UNITS, Output } from '@/app/lib/constants';
 import { Temperature, Volume } from '@/app/lib/models';
+import { ResponseType } from '@/app/lib/types';
 
 /**
  * Checks if the given unit is a temperature unit based on the name.
@@ -117,7 +118,13 @@ export async function POST(request: Request) {
             throw new Error(`${ERRORS.invalidContentType} ${validContentType}`);
         }
 
-        const requestData = await request.json();
+        const requestData: ResponseType = await request.json();
+
+        // Check if the request data is an object
+        if (typeof requestData !== 'object' || requestData === null || Array.isArray(requestData)) {
+            throw new Error(`${ERRORS.invalidRequestData}`);
+        }
+
         const {
             inputNumericalValue,
             inputUnitOfMeasure,
@@ -154,7 +161,9 @@ export async function POST(request: Request) {
             // Return a response based on correctness evaluation
             return new Response(
                 JSON.stringify({
-                    output: isResponseCorrect ? Output.CORRECT : Output.INCORRECT,
+                    output: isResponseCorrect
+                        ? Output.CORRECT
+                        : Output.INCORRECT,
                     conversion: convertedValue.toString(),
                 }),
                 { status: 200, headers: ALLOWED.headers }

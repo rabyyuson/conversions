@@ -26,6 +26,7 @@ export const ERRORS = {
     failedConversionResults: 'Failed to fetch conversion results.',
     internalServerError: 'Internal Server Error',
     invalidContentType: 'Invalid Content-Type. Expected:',
+    invalidRequestData: 'Request data must be a valid object.',
     methodNotAllowed: 'Method not allowed',
 } 
 
