@@ -1,6 +1,16 @@
-# Conversion Utility
+# Conversions
 
-This project provides a versatile utility for converting between temperature and volume units. It allows seamless transformation across various units, ensuring accuracy and precision in conversions.
+This application provides a versatile utility for converting between temperature and volume units. It allows seamless transformation across various units, ensuring accuracy and precision in conversions. It aims to assist science teachers in grading unit-conversion problems submitted by students on paper worksheets.
+
+It provides a system to input questions and student responses for grading. The application supports conversions between temperatures (Kelvin, Celsius, Fahrenheit, Rankine) and volumes (Cubic Feet, Cubic Inches, Cups, Gallons, Liters, Tablespoons).
+
+## How the Application Addresses User Needs
+
+- **Teacher's Input Flexibility**: The application allows teachers to input diverse conversion scenarios, accommodating different numerical values and units of measure.
+
+- **Response Evaluation**: The system accurately evaluates student responses against authoritative answers, providing instant feedback on correctness or validity.
+
+- **User-Friendly Interface**: While the requirements do not specify UI details, the system ensures ease of use for teachers to efficiently enter data and obtain grading results.
 
 ## Features
 
@@ -11,25 +21,29 @@ The temperature conversion feature provides methods to convert between Celsius, 
 #### Example Usage:
 
 ```javascript
-// Celsius to Fahrenheit
-const celsiusToFahrenheit = convertTemperature('celsius', 'fahrenheit', 100); // Output: 212
+import { Temperature } from '@/app/lib/models';
 
-// Fahrenheit to Celsius
-const fahrenheitToCelsius = convertTemperature('fahrenheit', 'celsius', 212); // Output: 100
+const temperature = new Temperature({ name: 'Celsius' });
+const targetTemperature = { name: 'Fahrenheit' };
+convertedValue = convertAndRoundValue(temperature.convertTo(targetTemperature, 3));
+
+console.log(convertedValue) // 37.4
 ```
 
 ### Volume Conversions
 
-The volume conversion functionality supports transformations between cubic feet, cubic inches, cups, gallons, liters, and tablespoons.
+The volume conversion functionality supports transformations between Cubic Feet, Cubic Inches, Cups, Gallons, Liters, and Tablespoons.
 
 #### Example Usage:
 
 ```javascript
-// Cubic feet to cubic inches
-const cubicFeetToCubicInches = convertVolume('cubic-feet', 'cubic-inches', 100); // Output: 172800
+import { Volume } from '@/app/lib/models';
 
-// Liters to gallons
-const litersToGallons = convertVolume('liters', 'gallons', 100); // Output: 26.4172
+const volume = new Volume({ name: 'Cups' });
+const targetVolume = { name: 'Liters' };
+convertedValue = convertAndRoundValue(volume.convertTo(targetVolume, 25.6));
+
+console.log(convertedValue) // 6.1
 ```
 
 ## Getting Started
@@ -39,41 +53,94 @@ const litersToGallons = convertVolume('liters', 'gallons', 100); // Output: 26.4
 To set up the project, clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/rabyyuson/unit-conversion.git
-cd conversion-utility
+git clone https://github.com/rabyyuson/conversions.git
+cd conversions
 npm install
 # or
 yarn install
 ```
 
-### Usage
+After installing the dependencies, the application can be served locally using Next.js and will be accessible at http://localhost:3000/. You can start the application by running:
 
-After installation, utilize the conversion methods by importing them into your code:
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-```javascript
-import { convertTemperature, convertVolume } from './lib/conversionUtils';
+This command will launch the development server and make the application available for access locally in your browser.
 
-// Perform conversions using the respective functions
+### Backend API Endpoint
+
+After installation, the backend server exposes an API endpoint (http://localhost:3000/api/unit-conversion) where clients can make requests. Use tools like cURL or libraries like Axios in your code to interact with the endpoint:
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{
+  "inputNumericalValue": 3,
+  "inputUnitOfMeasure": "Celsius",
+  "targetUnitOfMeasure": "Fahrenheit",
+  "studentResponse": 37.4
+}' http://localhost:3000/api/unit-conversion
 ```
 
 ## Tests
 
-The project includes a comprehensive suite of tests to validate the accuracy of temperature and volume conversions. Run the tests using:
+The project includes a comprehensive suite of tests to ensure code quality and accuracy in temperature and volume conversions. The tests include linting checks and Jest testing.
+
+To run the comprehensive test suite, use the following command:
 
 ```bash
-npm test
+npm run test
 # or
 yarn test
 ```
 
-## Contributions
+Additionally, there's an automated CI/CD (Continuous Integration/Continuous Deployment) process set up for this project. The CI configuration file (**./github/workflows/main.yml**) performs linting and Jest tests on each push event to the **main** branch. The workflow ensures the codebase's integrity by automatically running tests in a continuous integration environment.
 
-Contributions and enhancements to this utility are welcome! Feel free to fork the repository and submit pull requests to improve the functionality, add new conversions, or enhance existing tests.
+## Continuous Integration
 
-## License
+The CI workflow is triggered on every push to the **main** branch and includes the following steps:
 
-This project is licensed under the [MIT License](http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1), granting permissions for distribution, modification, and use.
+```yaml
+name: Continuous Integration
 
-```c
-This markdown file provides sections for Features, Examples, Installation, Usage, Tests, Contributions, and License. Feel free to customize it further!
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
 ```
+
+This workflow uses GitHub Actions to automate the testing process, ensuring that linting and Jest tests are executed whenever changes are pushed to the **main** branch.
+
+### Future Updates
+
+The project aims to incorporate several enhancements and new features in the future, including:
+  
+- **Batch Processing**: Enabling batch processing functionalities, allowing the import of JSON/CSV files or handling multiple test inputs at once.
+
+- **User Authentication**: Introduce secure login functionality to manage teacher access and maintain data integrity.
+
+- **Extended Unit Conversions**: Expanding conversion capabilities beyond temperature and volume units, such as length, mass, or time, catering to a wider range of scientific disciplines and educational needs.
+
+- **Localized Unit Conversion**: Implementing support for different regions' unit conversion requirements, such as AUS, CAN & NZ, UK, US, etc.
+
+- **Dark/Light Mode**: Introducing visual themes like dark and light mode to enhance user experience and accessibility.
