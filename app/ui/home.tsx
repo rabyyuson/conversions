@@ -18,15 +18,15 @@ export default function Home() {
                 </p>
                 <ul className='list-disc pl-6 mb-6'>
                     <li className='text-gray-600 mb-2'>
-                        <strong>Temperature:</strong> Selecting 'Temperature' will lead you to the temperature conversion section, allowing conversions between Celsius, Fahrenheit, Kelvin, and Rankine scales.
+                        <strong>Temperature:</strong> Selecting &quot;Temperature&quot; will lead you to the temperature conversion section, allowing conversions between Celsius, Fahrenheit, Kelvin, and Rankine scales.
                     </li>
                     <li className='text-gray-600 mb-2'>
-                        <strong>Volume:</strong> Explore the 'Volume' link to convert volume measurements including Cubic Feet, Cubic Inches, Cups, Gallons, Liters, and Tablespoons.
+                        <strong>Volume:</strong> Explore the &quot;Volume&quot; link to convert volume measurements including Cubic Feet, Cubic Inches, Cups, Gallons, Liters, and Tablespoons.
                     </li>
                 </ul>
                 <h3 className='text-xl font-semibold mb-3'>What to Expect</h3>
                 <p className='text-gray-600 mb-4'>
-                    In each section, you'll find user-friendly forms to input values and select units. After filling the required fields, click the 'Convert' button to get accurate conversion results.
+                    In each section, you&quot;ll find user-friendly forms to input values and select units. After filling the required fields, click the &quot;Convert&quot; button to get accurate conversion results.
                 </p>
                 <p className='text-gray-600 mb-4'>
                     Additionally, a modal will display the converted value and possibly additional information related to the specific conversion.

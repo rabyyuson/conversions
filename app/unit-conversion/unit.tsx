@@ -164,13 +164,13 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
             <div className='mt-8 lg:mt-0 bg-white w-full lg:w-1/2 h-full rounded-lg p-4 lg:ml-4 overflow-x-auto text-sm'>
                 <h3 className='text-lg font-semibold mb-4'>Instructions</h3>
                 <p className='text-sm text-gray-600 mb-4'>
-                    Enter a value to convert in the "Value" field. Choose the unit you're converting from in the "From" dropdown, and select the unit you want to convert to in the "To" dropdown.
+                    Enter a value to convert in the &quot;Value&quot; field. Choose the unit you&quot;re converting from in the &quot;From&quot; dropdown, and select the unit you want to convert to in the &quot;To&quot; dropdown.
                 </p>
                 <p className='text-sm text-gray-600 mb-4'>
-                    Click the "Convert" button to perform the conversion. Use the "Reset" button to clear the form and start over.
+                    Click the &quot;Convert&quot; button to perform the conversion. Use the &quot;Reset&quot; button to clear the form and start over.
                 </p>
                 <p className='text-sm text-gray-600 mb-4'>
-                    After clicking "Convert," a modal will appear displaying the conversion result and additional information.
+                    After clicking &quot;Convert,&quot; a modal will appear displaying the conversion result and additional information.
                 </p>
                 <h3 className='text-lg font-semibold mb-4'>Resources</h3>
                 <p className='text-gray-600 mb-4'>
