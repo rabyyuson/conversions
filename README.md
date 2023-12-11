@@ -4,6 +4,10 @@ This application provides a versatile utility for converting between temperature
 
 It provides a system to input questions and student responses for grading. The application supports conversions between temperatures (Kelvin, Celsius, Fahrenheit, Rankine) and volumes (Cubic Feet, Cubic Inches, Cups, Gallons, Liters, Tablespoons).
 
+## Demo
+
+You can experience a live demonstration of this application at the following URL: https://conversions-alpha.vercel.app/
+
 ## How the Application Addresses User Needs
 
 - **Teacher's Input Flexibility**: The application allows teachers to input diverse conversion scenarios, accommodating different numerical values and units of measure.
