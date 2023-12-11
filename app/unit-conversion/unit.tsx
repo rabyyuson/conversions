@@ -6,8 +6,7 @@ import Main from '@/app/ui/main';
 import NotFound from '@/app/ui/not-found';
 import Dropdown from '@/app/unit-conversion/dropdown';
 import { ALLOWED, ERRORS, UNITS } from '@/app/lib/constants';
-import { capitalize } from '@/app/lib/utils';
-import { Result } from '@/app/lib/types';
+import { ResultProps } from '@/app/lib/types';
 import Modal from '@/app/unit-conversion/modal';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -22,7 +21,7 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
     const [inputUnitOfMeasure, setInputUnitOfMeasure] = useState('');
     const [targetUnitOfMeasure, setTargetUnitOfMeasure] = useState('');
     const [studentResponse, setStudentResponse] = useState('');
-    const [results, setResults] = useState<Result | null>(null);
+    const [results, setResults] = useState<ResultProps | null>(null);
     const [showModal, setShowModal] = useState(false);
 
     // Fetches conversion results from the API based on user inputs.
@@ -80,7 +79,7 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
     // Render the form fields
     const renderForm = () => {
         return (
-            <div className='bg-white w-1/2 h-full rounded-lg p-8 mr-4'>
+            <div className='bg-white w-full lg:w-1/2 h-full rounded-lg p-8 lg:mr-4'>
                 <div className='sm:col-span-3'>
                     <label htmlFor='inputNumericalValue' className='block text-sm font-medium leading-6 text-gray-900'>
                         Value
@@ -162,9 +161,79 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
     // Render the table chart
     const renderResources = () => {
         return (
-            <div className='bg-white w-1/2 h-full rounded-lg p-4 ml-4 overflow-x-auto'>
-                <h3>Links</h3>
-
+            <div className='mt-8 lg:mt-0 bg-white w-full lg:w-1/2 h-full rounded-lg p-4 lg:ml-4 overflow-x-auto text-sm'>
+                <h3 className='text-lg font-semibold mb-4'>Instructions</h3>
+                <p className='text-sm text-gray-600 mb-4'>
+                    Enter a value to convert in the "Value" field. Choose the unit you're converting from in the "From" dropdown, and select the unit you want to convert to in the "To" dropdown.
+                </p>
+                <p className='text-sm text-gray-600 mb-4'>
+                    Click the "Convert" button to perform the conversion. Use the "Reset" button to clear the form and start over.
+                </p>
+                <p className='text-sm text-gray-600 mb-4'>
+                    After clicking "Convert," a modal will appear displaying the conversion result and additional information.
+                </p>
+                <h3 className='text-lg font-semibold mb-4'>Resources</h3>
+                <p className='text-gray-600 mb-4'>
+                    If you need help understanding unit conversions, check out these resources:
+                </p>
+                <ul className='list-disc pl-4 text-gray-600'>
+                    <li>
+                        <a
+                            href='https://www.mathsisfun.com/measure/converting-lengths.html'
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            className='text-indigo-600 hover:underline'
+                        >
+                            Length Conversions - MathsIsFun
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href='https://www.omnicalculator.com/physics/unit-conversion'
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            className='text-indigo-600 hover:underline'
+                        >
+                            Unit Converter - OmniCalculator
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href='https://www.calculatorsoup.com/calculators/conversions/index.php'
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            className='text-indigo-600 hover:underline'
+                        >
+                            Conversions Calculator - CalculatorSoup
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href='https://unitchefs.com/volume/'
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            className='text-indigo-600 hover:underline'
+                        >
+                            Volume Conversions - UnitChefs
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href='https://en.wikipedia.org/wiki/Conversion_of_scales_of_temperature'
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            className='text-indigo-600 hover:underline'
+                        >
+                            Temperature Scales Conversion - Wikipedia
+                        </a>
+                    </li>
+                </ul>
+                <p className='text-gray-600 mt-4'>
+                    Exploring these resources can provide formulas, explanations, and practical examples for better understanding.
+                </p>
+                <p className='text-gray-600 mt-4'>
+                    Remember, unit conversions involve transforming one unit of measure into another. These resources offer diverse approaches to simplify complex conversions.
+                </p>
             </div>
         );
     }
@@ -182,10 +251,10 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
         );
     }
 
-    // Render the complete unit
+    // Render the unit
     const renderUnit = () => {
         return (
-            <div className='flex'>
+            <div className='lg:flex'>
                 {renderForm()}
                 {renderResources()}
                 {showModal && renderModal()}
@@ -197,7 +266,10 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
         <>
             <Sidebar/>
             <Main>
-                {UNITS[type] ? renderUnit() : <NotFound/>}
+                {UNITS[type]
+                    ? renderUnit()
+                    : <NotFound/>
+                }
             </Main>
         </>
     );

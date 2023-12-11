@@ -18,7 +18,7 @@ export default function Sidebar() {
             <Link
                 href={path}
                 className={clsx(
-                    'cursor-pointer mb-2 text-sm flex items-center w-100% inline-block px-4 py-3 rounded-lg',
+                    'w-40px lg:w-full cursor-pointer mb-2 text-sm flex items-center inline-block p-3 rounded-lg',
                     isActivePath(path) ? styles.active : styles.inactive
                 )}
             >
@@ -26,10 +26,10 @@ export default function Sidebar() {
                     src={isActivePath(path) ? `/sidebar/${icon}-active.svg` : `/sidebar/${icon}-inactive.svg`}
                     width={20}
                     height={20}
-                    className='mr-2'
+                    className='max-w-[20px] lg:mr-2'
                     alt='Sidebar link icon'
                 />
-                <span>
+                <span className='hidden lg:block'>
                     {label}
                 </span>
             </Link>
@@ -37,15 +37,16 @@ export default function Sidebar() {
     }
 
     return (
-        <div className='w-1/5 p-4'>
-            <h2 className='text-xl font-bold mb-4 flex'>
+        <div className='w-45px lg:w-[24%] p-4'>
+            <h2 className='text-xl font-bold mb-8 flex'>
                 <Image
+                    className='ml-[5px]'
                     src='/sidebar/logo.png'
-                    width={35}
-                    height={35}
+                    width={32}
+                    height={32}
                     alt='Sidebar logo'
                 />
-                <span className='text-base uppercase font-medium ml-[10px] mt-[7px]'>
+                <span className='hidden lg:block text-base uppercase font-medium lg:ml-[10px] mt-[7px]'>
                     Conversions
                 </span>
             </h2>

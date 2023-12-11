@@ -26,7 +26,7 @@ const LottieAnimation = ({ animationData }: LottieAnimationProps) => {
 
     return (
         <div
-            className='w-[300px] h-[200px] scale-150 ml-[-5px]'
+            className='mt-5 md:mt-0 h-[150px] md:w-[300px] md:h-[200px] scale-150 md:ml-[-5px]'
             ref={containerRef}
         ></div>
     );

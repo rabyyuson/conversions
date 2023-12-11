@@ -1,28 +1,28 @@
 import { ReactNode } from 'react';
 import { UNITS } from './constants';
 
-export type Unit = {
+export type UnitProps = {
     name: string;
     symbol: string;
 };
 
-export type Units = Unit[];
+export type UnitsProps = UnitProps[];
 
 export type TemperatureUnit = {
     name: typeof UNITS['temperature'][number]['name'];
 };
 
-export type VolumeUnit = {
+export type VolumeUnitProps = {
     name: typeof UNITS['volume'][number]['name'];
 };
 
 export type DropdownProps = {
-    list: Units;
+    list: UnitsProps;
     handleUnitChange: (value: string) => void;
     value?: string;
 }
 
-export type Result = {
+export type ResultProps = {
     output?: string;
     conversion?: string;
     message?: string;
@@ -38,7 +38,7 @@ export type SidebarLinkProps = {
     icon: string;
 };
 
-export interface ModalProps extends Result {
+export interface ModalProps extends ResultProps {
     studentResponse: string;
     toggleModal: () => void;
 }

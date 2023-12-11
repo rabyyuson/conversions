@@ -1,5 +1,5 @@
 import { UNITS } from './constants';
-import { TemperatureUnit, VolumeUnit } from '@/app/lib/types';
+import { TemperatureUnit, VolumeUnitProps } from '@/app/lib/types';
 
 export class Temperature {
     unit: TemperatureUnit;
@@ -119,9 +119,9 @@ export class Temperature {
   }
   
 export class Volume {
-    unit: VolumeUnit;
+    unit: VolumeUnitProps;
   
-    constructor(unit: VolumeUnit) {
+    constructor(unit: VolumeUnitProps) {
       this.unit = unit;
     }
   
@@ -143,7 +143,7 @@ export class Volume {
      * @param value The numerical value to be converted
      * @returns The converted value or null if the conversion is not supported
      */
-    convertTo(targetUnit: VolumeUnit, value: number): number | null {
+    convertTo(targetUnit: VolumeUnitProps, value: number): number | null {
         const { name } = this.unit;
         const { name: targetName } = targetUnit;
 
