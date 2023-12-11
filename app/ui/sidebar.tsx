@@ -7,12 +7,25 @@ import { SidebarLinkProps } from '@/app/lib/types';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
+/**
+ * Sidebar component displaying navigation links.
+ * 
+ * @returns Sidebar component with navigation links
+ */
 export default function Sidebar() {
     const pathname = usePathname();
 
     // Check if the given path matches the current pathname.
     const isActivePath = (path: string) => pathname === path;
 
+    /**
+     * Renders a sidebar link component.
+     * 
+     * @param path The link path
+     * @param label The link label
+     * @param icon The link icon
+     * @returns The rendered sidebar link
+     */
     const renderLink = ({ path, label, icon }: SidebarLinkProps) => {
         return (
             <Link

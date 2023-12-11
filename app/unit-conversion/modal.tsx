@@ -7,10 +7,31 @@ import LottieAnimation from '@/app/ui/lottie-animation';
 import clsx from 'clsx';
 import { fredoka } from '@/app/fonts';
 
-export default function Modal({ output, conversion, studentResponse, message, toggleModal }: ModalProps) {
+/**
+ * Renders a Modal component that displays conversion results, animations, and an option to close.
+ * 
+ * @param output The output of the conversion (correct/incorrect)
+ * @param conversion The converted value
+ * @param studentResponse The student's response
+ * @param message The message to display
+ * @param toggleModal Function to toggle the visibility of the modal
+ * @returns The Modal component with conversion details and animations
+ */
+export default function Modal({
+    conversion,
+    output,
+    message,
+    studentResponse,
+    toggleModal
+}: ModalProps) {
     const modalRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        /**
+         * Handles the outside click event to close the modal when clicking outside the modal content.
+         * 
+         * @param event The mouse event
+         */
         function handleClickOutside(event: MouseEvent) {
             if (modalRef.current && event.target instanceof Node && !modalRef.current.contains(event.target)) {
                 toggleModal();
@@ -23,6 +44,12 @@ export default function Modal({ output, conversion, studentResponse, message, to
         };
     });
 
+    /**
+     * Renders conversion results based on animation data and output status.
+     * 
+     * @param animationData The data for the animation to display
+     * @returns The rendered conversion results with animations
+     */
     const renderResults = ({ animationData }: LottieAnimationProps) => {
         return (
             <>

@@ -2,6 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import lottie, { AnimationItem } from 'lottie-web';
 import { LottieAnimationProps } from '@/app/lib/types';
 
+/**
+ * Renders a Lottie animation component using the provided animation data.
+ * 
+ * @param animationData The Lottie animation data
+ * @returns The rendered Lottie animation component
+ */
 const LottieAnimation = ({ animationData }: LottieAnimationProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const animRef = useRef<AnimationItem | null>(null);

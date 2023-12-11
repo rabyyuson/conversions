@@ -24,7 +24,11 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
     const [results, setResults] = useState<ResultProps | null>(null);
     const [showModal, setShowModal] = useState(false);
 
-    // Fetches conversion results from the API based on user inputs.
+    /**
+     * Fetches conversion results from the API based on user inputs.
+     * If successful, sets the results in the component state.
+     * If unsuccessful, logs an error.
+     */
     const fetchConversionResults = async () => {
         try {
             const response = await fetch(`${API_BASE_URL}/api/unit-conversion`, {
@@ -76,7 +80,10 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
     // Toggle the modal display
     const toggleModal = () => setShowModal(!showModal);
 
-    // Render the form fields
+    /**
+     * Renders the form fields for inputting values and selecting units for conversion.
+     * Allows users to input numerical values, select conversion units, and submit conversions.
+     */
     const renderForm = () => {
         return (
             <div className='bg-white w-full lg:w-1/2 h-full rounded-lg p-8 lg:mr-4'>
@@ -158,7 +165,10 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
         );
     }
 
-    // Render the table chart
+    /**
+     * Renders instructional content and external resources for unit conversion.
+     * Provides instructions on inputting values, performing conversions, and offers external resources for assistance.
+     */
     const renderResources = () => {
         return (
             <div className='mt-8 lg:mt-0 bg-white w-full lg:w-1/2 h-full rounded-lg p-4 lg:ml-4 overflow-x-auto text-sm'>
@@ -238,7 +248,10 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
         );
     }
 
-    // Render the modal
+    /**
+     * Renders the modal displaying the conversion output, student response, and additional details.
+     * Uses the 'Modal' component to display the conversion results and related information.
+     */
     const renderModal = () => {
         return (
             <Modal
@@ -251,7 +264,10 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
         );
     }
 
-    // Render the unit
+    /**
+     * Renders the unit conversion interface.
+     * Displays the form fields, resources, and modal (if shown).
+     */
     const renderUnit = () => {
         return (
             <div className='lg:flex'>

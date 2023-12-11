@@ -1,3 +1,13 @@
+/**
+ * Renders the main landing page for the Conversions application.
+ * 
+ * This page provides an overview of the application's functionality, including
+ * information on unit conversion tools available for science teachers and students.
+ * It presents instructions on how to use the application and what to expect
+ * from the temperature and volume conversion sections.
+ * 
+ * @returns The main landing page component
+ */
 export default function Home() {
     return (
         <div className='flex'>
