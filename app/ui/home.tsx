@@ -13,8 +13,11 @@ export default function Home() {
         <div className='flex'>
           <div className='bg-white w-full h-full rounded-lg p-8'>
             <h2 className='text-2xl font-semibold mb-4'>Welcome to Conversions!</h2>
-                <p className='text-gray-600 mb-8'>
+                <p className='text-gray-600 mb-4'>
                     At Conversions, we provide a seamless tool for science teachers and students to tackle unit conversion problems efficiently. Our application provides an easy way to input student responses and receive instant feedback on correctness, helping educators efficiently evaluate submissions. We prioritize clean, maintainable, and production-quality code and our approach focuses on multiple dimensions of code functionality.
+                </p>
+                <p className='text-gray-600 mb-8'>
+                    Watch the following video for a comprehensive demonstration of our application&apos;s features and functionality:
                 </p>
                 <div className="w-full h-full">
                     <video controls className="w-full h-full" poster="/home/poster.png">
