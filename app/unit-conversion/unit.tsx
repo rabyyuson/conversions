@@ -103,7 +103,7 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
                         />
                     </div>
                 </div>
-                <div className='mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
+                <div className='mt-6 md:mt-4 grid grid-cols-1 gap-x-6 gap-y-4 md:gap-y-8 sm:grid-cols-6'>
                     <div className='sm:col-span-3'>
                         <label htmlFor='inputUnitOfMeasure' className='block text-sm font-medium leading-6 text-gray-900'>
                             From
