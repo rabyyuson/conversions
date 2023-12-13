@@ -14,18 +14,9 @@ export default function Home() {
           <div className='bg-white w-full h-full rounded-lg p-8'>
             <h2 className='text-xl font-semibold mb-4'>Welcome to Conversions!</h2>
                 <p className='text-sm text-gray-600 mb-4'>
-                    At Conversions, we provide a seamless tool for science teachers and students to tackle unit conversion problems efficiently. Our application provides an easy way to input student responses and receive instant feedback on correctness, helping educators efficiently evaluate submissions. We prioritize clean, maintainable, and production-quality code and our approach focuses on multiple dimensions of code functionality.
+                    At Conversions, we provide a seamless tool for science teachers to tackle unit conversion problems efficiently. Our application provides an easy way to input student responses and receive instant feedback on correctness, helping educators efficiently evaluate submissions. We prioritize clean, maintainable, and production-quality code and our approach focuses on multiple dimensions of code functionality.
                 </p>
-                <p className='text-sm text-gray-600 mb-8'>
-                    Watch the following video for a comprehensive demonstration of our application&apos;s features and functionality:
-                </p>
-                <div className="w-full h-full">
-                    <video controls className="w-full h-full" poster="/home/poster.png">
-                        <source src="/home/conversions-walkthrough.mov" type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-                <h3 className='text-lg font-semibold mt-8 mb-4'>Instructions</h3>
+                <h3 className='text-lg font-semibold mb-4'>Instructions</h3>
                 <p className='text-sm text-gray-600 mb-4'>
                     To get started, click on the sidebar links to navigate to specific unit conversion sections:
                 </p>

@@ -96,7 +96,7 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
                             className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                             name='inputNumericalValue'
                             type='number'
-                            step='1'
+                            step='0.1'
                             placeholder='Enter the value to convert'
                             value={inputNumericalValue}
                             onChange={handleInputNumericalValueChange}
@@ -138,7 +138,7 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
                             className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                             name='studentResponse'
                             type='number'
-                            step='1'
+                            step='0.1'
                             placeholder='Enter the student response'
                             value={studentResponse}
                             onChange={handleStudentResponseChange}
@@ -171,10 +171,10 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
      */
     const renderResources = () => {
         return (
-            <div className='mt-8 lg:mt-0 bg-white w-full lg:w-1/2 h-full rounded-lg p-4 lg:ml-4 overflow-x-auto text-sm'>
+            <div className='mt-8 lg:mt-0 bg-white w-full lg:w-1/2 h-full rounded-lg p-8 lg:ml-4 overflow-x-auto text-sm'>
                 <h3 className='text-lg font-semibold mb-4'>Instructions</h3>
                 <p className='text-sm text-gray-600 mb-4'>
-                    Enter a value to convert in the &quot;Value&quot; field. Choose the unit you&quot;re converting from in the &quot;From&quot; dropdown, and select the unit you want to convert to in the &quot;To&quot; dropdown.
+                    Enter a value to convert in the &quot;Value&quot; field. Choose the unit you&apos;re converting from in the &quot;From&quot; dropdown, and select the unit you want to convert to in the &quot;To&quot; dropdown.
                 </p>
                 <p className='text-sm text-gray-600 mb-4'>
                     Click the &quot;Convert&quot; button to perform the conversion. Use the &quot;Reset&quot; button to clear the form and start over.
@@ -187,36 +187,6 @@ export default function Unit({ type }: { type: keyof typeof UNITS }) {
                     If you need help understanding unit conversions, check out these resources:
                 </p>
                 <ul className='list-disc pl-4 text-gray-600'>
-                    <li>
-                        <a
-                            href='https://www.mathsisfun.com/measure/converting-lengths.html'
-                            target='_blank'
-                            rel='noopener noreferrer'
-                            className='text-indigo-600 hover:underline'
-                        >
-                            Length Conversions - MathsIsFun
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href='https://www.omnicalculator.com/physics/unit-conversion'
-                            target='_blank'
-                            rel='noopener noreferrer'
-                            className='text-indigo-600 hover:underline'
-                        >
-                            Unit Converter - OmniCalculator
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href='https://www.calculatorsoup.com/calculators/conversions/index.php'
-                            target='_blank'
-                            rel='noopener noreferrer'
-                            className='text-indigo-600 hover:underline'
-                        >
-                            Conversions Calculator - CalculatorSoup
-                        </a>
-                    </li>
                     <li>
                         <a
                             href='https://unitchefs.com/volume/'
